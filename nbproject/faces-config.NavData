@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="agregar.xhtml" x="512" y="239" zoom="true"/>
+        <Node id="index.xhtml" x="437" y="305" zoom="true"/>
+        <Node id="agregarEmpleado.xhtml" x="96" y="272" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

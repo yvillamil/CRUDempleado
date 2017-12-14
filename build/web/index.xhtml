@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Inicio</title>
+    </h:head>
+    <h:body>
+        <p:panel>
+            <h:form id="formInicio">
+
+                <h3>Empleados</h3>
+
+                <p:dataTable id="tableList" var="empleado" value="#{empleadoBean.empleados}" emptyMessage="No hay empleados">
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{empleado.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Cedula">
+                        <h:outputText value="#{empleado.cedula}"/>
+                    </p:column>
+                    <p:column headerText="Correo">
+                        <h:outputText value="#{empleado.correo}"/>
+                    </p:column>
+                    <p:column headerText="Accion">
+                        <p:commandButton value="modificar" oncomplete="PF('dlgModificar').show();" update="formEdit" >
+                            <f:setPropertyActionListener target="#{empleadoBean.empleadoDTO}" value="#{empleado}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Eliminar" oncomplete="PF('dlgEliminar').show();" update="formDelete" >
+                            <f:setPropertyActionListener target="#{empleadoBean.empleadoDTO}" value="#{empleado}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>   
+
+                <p:panelGrid columns="1">
+                    <p:commandButton value="Agregar" id="idagregar" action="agregar"/>
+                </p:panelGrid>
+
+            </h:form> 
+        </p:panel>
+
+
+        <p:dialog id="edit" header="Editar" widgetVar="dlgModificar"  modal="true" >
+
+            <h3>Editar empleado</h3>
+
+            <h:form id="formEdit">
+                <p:panelGrid id="tableEdit" columns="2">
+
+                    <p:outputLabel value="Nombre  "/>
+                    <p:inputText value="#{empleadoBean.empleadoDTO.nombre}"/>
+                    <p:outputLabel value="Cedula "/>
+                    <p:inputText value="#{empleadoBean.empleadoDTO.cedula}"></p:inputText>
+                    <p:outputLabel value="Correo "/>
+                    <p:inputText value="#{empleadoBean.empleadoDTO.correo}"  />
+                    <p:commandButton value="Guardar Cambios" onclick="PF('dlgModificar').hide();"  action="#{empleadoBean.editarEmpleado()}"/>
+                    <p:commandButton value="Cancelar" onclick="PF('dlgModificar').hide();"  />
+                </p:panelGrid>
+            </h:form> 
+        </p:dialog> 
+
+        <p:dialog id="delete" header="Eliminar" widgetVar="dlgEliminar"  modal="true" >
+
+            <h3>Editar empleado</h3>
+
+            <h:form id="formDelete">
+                <p:panelGrid id="tableDelete" columns="2">
+
+                    <p:outputLabel value="Nombre  "/>
+                    <p:outputLabel value="#{empleadoBean.empleadoDTO.nombre}"/>
+                    <p:outputLabel value="Cedula "/>
+                    <p:outputLabel value="#{empleadoBean.empleadoDTO.cedula}"/>
+                    <p:outputLabel value="Correo "/>
+                    <p:outputLabel value="#{empleadoBean.empleadoDTO.correo}"  />
+                    <p:commandButton  update=":formInicio:tableList" value="Eliminar" onclick="PF('dlgEliminar').hide();"  action="#{empleadoBean.eliminarEmpleado()}"/>
+                    <p:commandButton value="Cancelar" onclick="PF('dlgEliminar').hide();"  />
+                </p:panelGrid>
+            </h:form> 
+        </p:dialog> 
+    </h:body>
+</html>
+
